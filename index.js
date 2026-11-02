@@ -6,6 +6,7 @@ import UserRoute from "./src/routes/UserRoute.js";
 import CategoryRoute from "./src/routes/CategoryRoute.js";
 import SubCatgoryRoute from "./src/routes/Sub-CategoryRoute.js";
 import ProdcutRouter from "./src/routes/ProductRoute.js";
+import AddTOCardRoutr from "./src/routes/AddToCartRoute.js";
 dotenv.config();
 
 const app = express();
@@ -16,6 +17,7 @@ app.use("/api", UserRoute);
 app.use("/api", CategoryRoute);
 app.use("/api", SubCatgoryRoute);
 app.use("/api", ProdcutRouter);
+app.use("/api", AddTOCardRoutr);
 
 app.listen(process.env.PORT, () => {
   DatabaseConnect();

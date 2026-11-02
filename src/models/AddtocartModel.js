@@ -1,7 +1,12 @@
 import mongoose from "mongoose";
+import generateID from "../helpers/GenerateID.js";
 import mongoosePaginate from "mongoose-paginate-v2";
 const CardSchema = new mongoose.Schema(
   {
+    uuid: {
+      type: String,
+      default: generateID("card_"),
+    },
     user_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -18,7 +23,7 @@ const CardSchema = new mongoose.Schema(
       required: [true, "Product price is required in card"],
     },
 
-    quentity: {
+    quantity: {
       type: String,
       default: 0,
     },
