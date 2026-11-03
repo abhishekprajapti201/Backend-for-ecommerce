@@ -33,7 +33,7 @@ export const AddToCard = async (req, res) => {
     });
 
     if (datacard) {
-      datacard.quantity += Number(quantity);
+      datacard.quantity = Number(quantity) + 1;
       datacard.price = product.price * datacard.quantity;
 
       await datacard.save();
@@ -76,12 +76,12 @@ export const AddToCard = async (req, res) => {
 export const DeleteCard = async (req, res) => {
   try {
     const { uuid } = req.params;
-    const getdelete = await findOneAndDelete(uuid);
+    const getdelete = await AddToCardModel.findOneAndDelete(uuid);
 
     if (getdelete) {
       return SuccessResponse(res, 200, "Card deleted successfully", getdelete);
     }
-    return ErrorResponse(res, 500, "Deletion process failed");
+    return ErrorResponse(res, 400, "Data not found related this ID");
   } catch (error) {
     return ErrorResponse(res, 500, "Internal server error", error.message);
   }
@@ -197,9 +197,9 @@ export const DecrementQut = async (req, res) => {
 
 export const ListCart = async (req, res) => {
   try {
-    const { uuid } = req.params;
+    const { user_id } = req.params;
 
-    const users = await UserModel.findById(uuid);
+    const users = await UserModel.findById(user_id);
 
     if (!users) {
       return ErrorResponse(res, 404, "User not found");
@@ -207,7 +207,7 @@ export const ListCart = async (req, res) => {
 
     const allcart = await AddToCardModel.find({
       user_id: users._id,
-    }).populate("product_id");
+    }).populate("user_id");
 
     if (allcart.length === 0) {
       return ErrorResponse(res, 404, "Cart is empty");

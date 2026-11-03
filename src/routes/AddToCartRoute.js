@@ -6,6 +6,6 @@ router.post("/add-to-cart",UserAuthMiddleware,AddToCard);
 router.delete("/delete/cart/:uuid",UserAuthMiddleware,DeleteCard);
 router.post("/increment",UserAuthMiddleware,IncrementQut);
 router.post("/decrement",UserAuthMiddleware,DecrementQut);
-router.get("/add-to-cart",UserAuthMiddleware,ListCart);
+router.get("/add-to-cart/:user_id",UserAuthMiddleware,ListCart);
 
 export default router;
