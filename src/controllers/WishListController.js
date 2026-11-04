@@ -42,7 +42,7 @@ export const DeleteItem = async (req, res) => {
     if (data) {
       return SuccessResponse(res, 200, "Product deleted in the wishlist", data);
     }
-    return ErrorResponse(res, 400, "Product not found");
+    return ErrorResponse(res, 400, "Data not found");
   } catch (error) {
     return ErrorResponse(res, 500, "Internal server error", error.message);
   }
@@ -50,7 +50,6 @@ export const DeleteItem = async (req, res) => {
 export const WishList = async (req, res) => {
   try {
     const { user_id } = req.params;
-    const users = await UserModel.findById(user_id);
     if (!user_id) {
       return ErrorResponse(
         res,
@@ -59,7 +58,7 @@ export const WishList = async (req, res) => {
       );
     }
 
-    const data = await WishListModel.find({ user_id: user_id }).populate();
+    const data = await WishListModel.find({ user_id }).populate();
     if (!data) {
       return ErrorResponse(res, 200, "Wishlists data here", data);
     }
