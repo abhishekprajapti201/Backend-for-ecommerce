@@ -60,10 +60,10 @@ export const WishList = async (req, res) => {
     }
 
     const data = await WishListModel.find({ user_id: user_id }).populate();
-    if (data) {
-      return SuccessResponse(res, 200, "Wishlists data here", data);
+    if (!data) {
+      return ErrorResponse(res, 200, "Wishlists data here", data);
     }
-    return ErrorResponse(res, 400, "Wishlist data is empty");
+    return SuccessResponse(res, 400, "Wishlist data is empty");
   } catch (error) {
     return ErrorResponse(res, 500, "Internal server error", error.message);
   }

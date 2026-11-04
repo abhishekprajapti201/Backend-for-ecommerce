@@ -19,13 +19,13 @@ const CardSchema = new mongoose.Schema(
     },
 
     price: {
-      type: String,
+      type: Number,
       required: [true, "Product price is required in card"],
     },
 
     quantity: {
-      type: String,
-      default: 0,
+      type: Number,
+      default: 1,
     },
   },
   { timestamps: true },

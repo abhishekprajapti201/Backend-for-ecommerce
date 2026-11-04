@@ -27,13 +27,14 @@ export const AddToCard = async (req, res) => {
       return ErrorResponse(res, 404, "User not found");
     }
 
-    const datacard = await AddToCardModel.findOne({
+    const datacard = await AddToCardModel.findOneAndUpdate({
       user_id,
       product_id,
     });
 
     if (datacard) {
-      datacard.quantity = Number(quantity) + 1;
+      const curentQnt = Number(datacard.quantity) || 0;
+      datacard.quantity = curentQnt + 1;
       datacard.price = product.price * datacard.quantity;
 
       await datacard.save();
